@@ -14,8 +14,8 @@
 using namespace std;
 
 stack<ll> s;
-vector<ll> v[100001];
-bool vis[100001];
+vector<ll> v[1000001];
+bool vis[1000001];
 void topological_sort(ll u)
 {
     vis[u]=true;
