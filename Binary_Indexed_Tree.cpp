@@ -13,17 +13,6 @@
 #define pq priority_queue
 using namespace std;
 
-ll m=1000000007;
-ll power(ll x, ll y)
-{
-    if (y == 0)
-        return 1;
-    ll p = power(x, y/2) % m;
-    p = (p%m * p%m) % m;
-
-    return (y%2 == 0)? p%m : (x%m * p%m) % m;
-}
-
 ll BIT[1000], a[1000];
 void update(ll x, ll delta, ll n)
 {
