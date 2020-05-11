@@ -29,13 +29,11 @@ void intialise(ll n)
 
 ll root(ll i)
 {
-    ll j=i;
-    while(a[i]!=i)
-    {
-        i=a[i];
-        a[j]=i;
-        j=i;
-    }
+    while (a[i] != i)
+	{
+		a[i]=a[a[i]] ;
+		i = a[ i ];
+	}
     return i;
 }
 
