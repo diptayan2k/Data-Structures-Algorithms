@@ -13,8 +13,8 @@
 #define pq priority_queue
 using namespace std;
 
-ll size[1000001];
-ll a[1000001];
+ll size[10000001];
+ll a[10000001];
 
 
 void intialise(ll n)
