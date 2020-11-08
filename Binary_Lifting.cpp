@@ -69,17 +69,17 @@ ll lca(ll x, ll y)
 int main()
 {
 
-    cin>>n;
+    	cin >> n;
 
-    f(i,1,n-1)
-    {
-        ll x,y;
-        cin>>x>>y;
-        v[x].pb(y);
-        v[y].pb(x);
-    }
-    
-    lev[0] = -1;
+	for (int i = 0; i < n; i++)
+	{
+		ll x, y;
+		cin >> x >> y;
+		v[x].pb(y);
+		v[y].pb(x);
+	}
+
+	lev[0] = -1;
 	dfs(1, 0);
 	par[1][0] = -1;
 
@@ -95,7 +95,7 @@ int main()
 		}
 	}
 
-    cout<<lca(3,7);
+	cout << lca(3, 7);
 
 
 }
