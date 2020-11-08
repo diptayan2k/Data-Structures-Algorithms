@@ -18,89 +18,52 @@ using namespace std;
 using namespace __gnu_pbds;
 typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-ll p[100001][20];
-vector<ll> v[100001];
-ll lev[100001];
-bool vis[100001];
 ll n;
+vector<vector<ll> > par(200001, vector<ll>(21, -1));
+vector<ll> v[200001];
+ll lev[200001];
 
-void dfs(ll u)
+void dfs(ll u, ll p)
 {
-    vis[u]=true;
+	lev[u] = lev[p] + 1;
+	par[u][0] = p;
 
-    for(auto i: v[u])
-    {
-        if(!vis[i])
-        {
-            lev[i]=lev[u]+1;
-            p[i][0]=u;
-            dfs(i);
-        }
-    }
-
+	for (auto i : v[u])
+	{
+		if (i == p) continue;
+		dfs(i, u);
+	}
 }
 
-void setval()
+ll kthanc(ll x, ll k)
 {
-    init(p,-1);
-    init(lev,0);
-    init(vis,false);
-    dfs(1);
+	for (int i = 20; i >= 0; i--)
+	{
+		if (((1ll << i)&k) != 0) x = par[x][i];
+	}
 
-
-    f(i,1,19)
-    {
-        f(j,1,n)
-        {
-            if(p[j][i-1]!=-1)
-            {
-                p[j][i]=p[p[j][i-1]][i-1];
-            }
-        }
-
-    }
-
-
-
-
-
+	return x;
 }
 
-ll lca(ll u, ll v)
+ll lca(ll x, ll y)
 {
-    if(lev[u]<lev[v]) swap(u,v);
-    ll i,lg;
-    for(lg=0;(1<<lg)<=lev[u]; lg++);
-    lg--;
+	if (lev[y] > lev[x]) swap(x, y);
+	x = kthanc(x, lev[x] - lev[y]);
 
+	if (x == y) return x;
 
+	for (int i = 20; i >= 0; i--)
+	{
+		if (par[x][i] != 0 and par[x][i] != par[y][i])
+		{
+			x = par[x][i];
+			y = par[y][i];
+		}
+	}
 
-    for(i=lg;i>=0;i--)
-    {
-        if((lev[u]-(1<<i))>=lev[v])
-            u=p[u][i];
-
-    }
-
-
-    if(u==v) return u;
-
-
-
-    for(i=lg;i>=0;i--)
-    {
-        if(p[u][i]!=-1 and p[u][i]!=p[v][i])
-        {
-            u=p[u][i];
-            v=p[u][v];
-        }
-    }
-
-    return p[u][0];
-
+	return par[x][0];
 
 }
-
 
 
 int main()
@@ -115,7 +78,22 @@ int main()
         v[x].pb(y);
         v[y].pb(x);
     }
-    setval();
+    
+    lev[0] = -1;
+	dfs(1, 0);
+	par[1][0] = -1;
+
+	for (int j = 1; j <= 20; j++)
+	{
+		for (int i = 1; i <= n; i++)
+		{
+			ll u = par[i][j - 1];
+			if (u != -1)
+			{
+				par[i][j] = par[u][j - 1];
+			}
+		}
+	}
 
     cout<<lca(3,7);
 
