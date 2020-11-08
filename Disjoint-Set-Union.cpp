@@ -19,44 +19,47 @@ ll a[1000001];
 
 void intialise(ll n)
 {
-    f(i,0,n)
-    {
-        a[i]=i;
-        size[i]=1;
-    }
+	for (int i = 0; i <= n; i++)
+	{
+		a[i] = i;
+		siz[i] = 1;
+	}
 
 }
 
 ll root(ll i)
 {
-    while (a[i] != i)
+	while (a[i] != i)
 	{
-		a[i]=a[a[i]] ;
+		a[i] = a[a[i]] ;
 		i = a[ i ];
 	}
-    return i;
+	return i;
 }
 
 void union_(ll x, ll y)
 {
-   ll rootx=root(x);
-   ll rooty=root(y);
-    if(size[rooty]>size[rootx]) swap(x,y);
-    a[rooty]=rootx;
-    size[rootx]+=size[rooty];
+	ll rootx = root(x);
+	ll rooty = root(y);
+	if (siz[rooty] > siz[rootx])
+	{
+		swap(x, y);
+		swap(rootx, rooty);
+	}
+	a[rooty] = rootx;
+	siz[rootx] += siz[rooty];
 
 }
 
 bool check_connection(ll x, ll y)
 {
-   ll rootx=root(x);
-   ll rooty=root(y);
+	ll rootx = root(x);
+	ll rooty = root(y);
 
-    if(rootx==rooty) return true;
-    else return false;
+	if (rootx == rooty) return true;
+	else return false;
 
 }
-
 
 int main()
 {
