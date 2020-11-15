@@ -13,7 +13,7 @@
 #define pq priority_queue
 using namespace std;
 
-ll size[1000001];
+ll siz[1000001];
 ll a[1000001];
 
 
